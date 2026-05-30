@@ -1,0 +1,4 @@
+# Claude Code Guidelines - Stenography
+
+For style guidelines, standards, and rules, refer to the master copy:
+[AGENTS.md](AGENTS.md)
