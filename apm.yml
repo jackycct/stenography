@@ -1,0 +1,12 @@
+name: stenography
+version: 0.1.0
+description: Token-efficient context packing layer for coding-agent workflows.
+publisher: jackycct
+license: MIT
+repository: https://github.com/jackycct/stenography
+exports:
+  instructions:
+    - .apm/instructions/context-budget-policy.instructions.md
+  skills:
+    - .apm/skills/stenography-context-pack
+    - .apm/skills/stenography-repo-summary

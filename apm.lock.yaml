@@ -1,0 +1,11 @@
+lockfileVersion: 1
+package: stenography
+version: 0.1.0
+generatedBy: manual
+policy: Commit lockfile changes with every apm.yml or .apm asset change.
+exports:
+  instructions:
+    - path: .apm/instructions/context-budget-policy.instructions.md
+  skills:
+    - path: .apm/skills/stenography-context-pack/SKILL.md
+    - path: .apm/skills/stenography-repo-summary/SKILL.md

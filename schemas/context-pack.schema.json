@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/jackycct/stenography/schemas/context-pack.schema.json",
+  "title": "Stenography Context Pack",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_id",
+    "source_inputs",
+    "budget_tokens",
+    "estimated_tokens",
+    "included_sections",
+    "outputs"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "issue",
+        "repo_wiki",
+        "codebrain_relevant_files"
+      ],
+      "properties": {
+        "issue": {
+          "type": "string",
+          "minLength": 1
+        },
+        "repo_wiki": {
+          "type": "string",
+          "minLength": 1
+        },
+        "codebrain_relevant_files": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "budget_tokens": {
+      "type": "number",
+      "minimum": 1
+    },
+    "estimated_tokens": {
+      "type": "number",
+      "minimum": 0
+    },
+    "included_sections": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "outputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "markdown",
+        "json"
+      ],
+      "properties": {
+        "markdown": {
+          "type": "string",
+          "minLength": 1
+        },
+        "json": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

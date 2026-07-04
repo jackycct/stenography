@@ -34,8 +34,44 @@ Automatically parses a target markdown file, strips grammatical fluff, maps logi
 
 ---
 
+## Context Packs
+
+Stenography also ships a standalone CLI for deterministic context packs:
+
+```bash
+stenography pack \
+  --repo . \
+  --task issue-123.md \
+  --budget 30000 \
+  --codebrain-analysis .codebrain/analysis/issue-123.json \
+  --output .stenography/packs/issue-123.pack.md
+
+stenography summarize-repo --repo . --output .stenography/repo-summary.md
+stenography validate-pack .stenography/packs/issue-123.pack.json
+```
+
+Contract: [docs/context-pack-contract.md](docs/context-pack-contract.md)
+
+Boundaries:
+
+- Stenography: token-efficient context packing
+- Avionics: workflow orchestration + feature toggles
+- agent-lens: telemetry, evals, A/B evidence
+- Codebrain: repo understanding, query, impact, repo wiki
+
+Avionics feature flags:
+
+```yaml
+features:
+  stenography_context_pack:
+    enabled: true
+  stenography_repo_summary:
+    enabled: true
+```
+
+---
+
 ## Installation & Integration
 
 See [INSTALL.md](INSTALL.md) for details on setting up Stenography configuration files in Claude Code, GitHub Copilot, Cursor, and Codex / Antigravity.
-
 

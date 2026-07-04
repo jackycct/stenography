@@ -1,0 +1,21 @@
+{
+  "name": "@avironics/stenography",
+  "version": "0.1.0",
+  "description": "Token-efficient context packing layer for coding-agent workflows.",
+  "bin": {
+    "stenography": "bin/stenography.js"
+  },
+  "scripts": {
+    "test": "node bin/stenography.js --help && node bin/stenography.js validate-pack examples/context-pack.example.json"
+  },
+  "keywords": [
+    "agents",
+    "context",
+    "compression",
+    "apm"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
