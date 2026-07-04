@@ -1,0 +1,23 @@
+{
+  "task_id": "issue-123",
+  "source_inputs": {
+    "issue": "issue-123.md",
+    "repo_wiki": ".codebrain/repo-wiki/index.md",
+    "codebrain_relevant_files": ".codebrain/analysis/issue-123.json"
+  },
+  "budget_tokens": 30000,
+  "estimated_tokens": 21400,
+  "included_sections": [
+    "issue_summary",
+    "repo_map",
+    "relevant_files",
+    "symbols",
+    "affected_tests",
+    "risk_notes",
+    "execution_guidance"
+  ],
+  "outputs": {
+    "markdown": ".stenography/packs/issue-123.pack.md",
+    "json": ".stenography/packs/issue-123.pack.json"
+  }
+}

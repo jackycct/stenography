@@ -1,5 +1,40 @@
 # Installation & Integration Guide
 
+## APM Installation
+
+Stenography uses Microsoft Agent Package Manager (APM) as canonical packaging for agent-facing assets.
+
+```bash
+apm install
+```
+
+Canonical source files live under `.apm/`:
+
+- `.apm/instructions/context-budget-policy.instructions.md`
+- `.apm/skills/stenography-context-pack/SKILL.md`
+- `.apm/skills/stenography-repo-summary/SKILL.md`
+
+Generated runtime folders for supported agents should be treated as install output, not source of truth.
+
+Lockfile policy:
+
+- Commit `apm.lock.yaml`.
+- Update lockfile whenever `apm.yml` or `.apm/` assets change.
+- Do not hand-edit generated runtime folders when `.apm/` can express the asset.
+
+Validation:
+
+```bash
+apm validate
+npm test
+```
+
+Release/versioning:
+
+- Bump `package.json` and `apm.yml` together.
+- Keep context-pack schema changes backward-compatible within a minor version.
+- Document breaking contract changes in a major version.
+
 ## Automatic Installation (Agent-Friendly)
 
 If an AI agent is running inside this repository, it can auto-detect its own environment and copy the correct configuration file to a target workspace root by running:
