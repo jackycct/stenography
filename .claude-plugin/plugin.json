@@ -1,0 +1,8 @@
+{
+  "name": "stenography",
+  "version": "0.1.0",
+  "description": "Token-efficient context packing layer for coding-agent workflows.",
+  "author": {
+    "name": "Jacky Chan"
+  }
+}

@@ -1,0 +1,12 @@
+pack:
+  format: plugin
+  target: minimal
+  packed_at: '2026-07-04T23:51:26.508102+00:00'
+  bundle_files:
+    instructions/context-budget-policy.instructions.md: 8a6563cfe949d0b805b3e5dadbb5d0397a90503590c8e1c3b80e42333655219d
+    plugin.json: 5055233ea3d1301b13f436800305fc882ea93264a107503040603c56ee0670ad
+    skills/stenography-context-pack/SKILL.md: d2cf54a3154f7d534c20518e7a0bb2f54fbbe20bbe82ce55fdd39610551ff77b
+    skills/stenography-repo-summary/SKILL.md: b41fccf30a2c1fc77907f400e16651a34e9cc08960ab5dd78341542456babf38
+lockfile_version: '1'
+generated_at: ''
+dependencies: []
