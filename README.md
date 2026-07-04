@@ -1,6 +1,17 @@
 # Stenography
 
-Stenography is an agent communication and context-compression system designed to minimize token usage while maintaining human readability and strict technical accuracy.
+Stenography generates deterministic context packs for coding agents under a token budget.
+
+It is not a generic short-writing project. It is a repo-local packing layer that turns task input, repo summaries, and optional Codebrain analysis into a compact Markdown pack plus JSON metadata that other workflow tools can consume.
+
+## Project Docs
+
+- Contribution workflow: [CONTRIBUTING.md](CONTRIBUTING.md)
+- Architecture boundaries: [docs/architecture.md](docs/architecture.md)
+- Context-packing design: [docs/design/context-packing.md](docs/design/context-packing.md)
+- Token-savings methodology: [docs/evals/token-savings-methodology.md](docs/evals/token-savings-methodology.md)
+- Golden examples: [docs/evals/golden-examples.md](docs/evals/golden-examples.md)
+- Durable decisions: [docs/adr/](docs/adr/)
 
 ## Design Principles
 
@@ -17,13 +28,15 @@ Stenography is an agent communication and context-compression system designed to
 
 ## Token & Speed Efficiency Comparison
 
+The table below is a target hypothesis for eval design, not a measured claim. Treat performance numbers as measured only when an AgentLens artifact is linked from an eval report.
+
 | Metric / Style | Verbose (Default) | Caveman | Stenography (Symbolic) |
 | :--- | :--- | :--- | :--- |
-| **Output Token Size** | 100% (baseline) | ~25% (75% saved) | **~30% (70% saved)** |
-| **Input Context Size** | 100% (baseline) | ~35% (65% saved) | **~35% (65% saved)** |
+| **Output Token Size** | 100% (baseline) | target: ~25% | target: ~30% |
+| **Input Context Size** | 100% (baseline) | target: ~35% | target: ~35% |
 | **Human Readability** | High | Extremely low (broken prose) | **High (logical structure)** |
 | **Technical Accuracy** | High | Moderate (risks ambiguity) | **High (retains logical relationships)** |
-| **Speed (TTFT/Generation)**| 1x | ~3x | **~3x** |
+| **Speed (TTFT/Generation)**| 1x | target: ~3x | target: ~3x |
 
 ---
 
