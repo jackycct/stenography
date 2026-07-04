@@ -29,6 +29,12 @@ apm validate
 npm test
 ```
 
+Update policy:
+
+- `apm update` is only for refreshing declared upstream APM dependencies.
+- Stenography currently has no upstream APM dependencies, so `apm update` should report that there is nothing to update.
+- To refresh this package after editing local `.apm/` assets, run `apm validate` and rebuild or reinstall with the APM command used by your target agent.
+
 Release/versioning:
 
 - Bump `package.json` and `apm.yml` together.
