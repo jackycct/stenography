@@ -10,8 +10,8 @@ Required fields:
 
 - `task_id`: stable task key, e.g. `issue-123`
 - `source_inputs.issue`: task or issue file consumed by the pack
-- `source_inputs.repo_wiki`: expected Codebrain repo wiki path
-- `source_inputs.codebrain_relevant_files`: opaque Codebrain analysis JSON path, or `null`
+- `source_inputs.repo`: repo root used for summary generation
+- `source_inputs.analysis`: opaque optional analysis JSON path, or `null`
 - `budget_tokens`: requested token budget
 - `estimated_tokens`: deterministic local estimate (`ceil(chars / 4)`)
 - `included_sections`: ordered context sections included in Markdown
@@ -20,9 +20,11 @@ Required fields:
 
 ## Standalone Boundary
 
-Stenography consumes Codebrain outputs as files and does not import Codebrain internals.
-Avionics owns workflow toggles/orchestration.
-agent-lens owns measurement and A/B reports.
+Stenography owns deterministic context-pack generation only.
+
+It may consume optional analysis JSON as an opaque file, but it must not depend on the producer. Workflow orchestration and repo-understanding engines stay outside this repo.
+
+AgentLens may consume pack metadata and task outcomes to prove token savings and quality improvements.
 
 ## CLI
 
@@ -31,39 +33,16 @@ stenography pack \
   --repo . \
   --task issue-123.md \
   --budget 30000 \
-  --codebrain-analysis .codebrain/analysis/issue-123.json \
+  --analysis analysis/issue-123.json \
   --output .stenography/packs/issue-123.pack.md
 
 stenography summarize-repo --repo . --output .stenography/repo-summary.md
 stenography validate-pack .stenography/packs/issue-123.pack.json
 ```
 
-## Avionics Toggles
+## AgentLens Metrics
 
-```yaml
-features:
-  stenography_context_pack:
-    enabled: true
-  stenography_repo_summary:
-    enabled: true
-```
-
-Experiment variant:
-
-```yaml
-baseline:
-  features:
-    stenography_context_pack: false
-
-variants:
-  - name: stenography_enabled
-    features:
-      stenography_context_pack: true
-```
-
-## agent-lens Metrics
-
-agent-lens should measure:
+AgentLens should measure:
 
 - total tokens
 - tool-result tokens

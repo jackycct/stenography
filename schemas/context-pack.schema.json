@@ -22,19 +22,19 @@
       "additionalProperties": false,
       "required": [
         "issue",
-        "repo_wiki",
-        "codebrain_relevant_files"
+        "repo",
+        "analysis"
       ],
       "properties": {
         "issue": {
           "type": "string",
           "minLength": 1
         },
-        "repo_wiki": {
+        "repo": {
           "type": "string",
           "minLength": 1
         },
-        "codebrain_relevant_files": {
+        "analysis": {
           "type": [
             "string",
             "null"

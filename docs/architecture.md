@@ -22,31 +22,31 @@ It accepts task and repo context, applies stable packing rules, and emits:
 
 ## Boundaries
 
-### Avionics
+### Workflow Orchestration
 
-Avionics owns workflow orchestration: issue routing, feature flags, agent run policy, experiment rollout, and cross-tool coordination.
+Workflow orchestration includes issue routing, feature flags, agent run policy, experiment rollout, and cross-tool coordination.
 
-Stenography may expose config names and CLI commands that Avionics calls, but it must not own orchestration state or run scheduling.
+Stenography exposes CLI commands that external orchestrators may call, but it must not own orchestration state or run scheduling.
 
-### Codebrain
+### Repo Understanding
 
-Codebrain owns repo understanding: relevant file discovery, symbol search, impact analysis, repo wiki generation, and dependency reasoning.
+Repo-understanding engines own relevant file discovery, symbol search, impact analysis, repo wiki generation, and dependency reasoning.
 
-Stenography may consume Codebrain outputs as opaque files, such as `.codebrain/analysis/issue-123.json`, but it must not import Codebrain internals or reimplement repo intelligence.
+Stenography may consume analysis outputs as opaque JSON files, but it must not import producer internals or reimplement repo intelligence.
 
 ### AgentLens
 
 AgentLens owns telemetry, eval execution, A/B evidence, reporting, and cost/success dashboards.
 
-Stenography may define what should be measured and include metadata needed by AgentLens, but measured performance claims require AgentLens artifacts.
+Stenography may define what should be measured and include metadata needed by AgentLens. Measured performance claims require AgentLens artifacts.
 
 ## Data Flow
 
 ```text
-task brief + repo files + optional Codebrain JSON
+task brief + repo files + optional analysis JSON
   -> stenography pack
   -> Markdown pack + JSON metadata
-  -> Avionics workflow / agent prompt / AgentLens eval
+  -> external workflow / agent prompt / AgentLens eval
 ```
 
 ## Determinism
@@ -57,7 +57,7 @@ Allowed deterministic inputs:
 
 - task file content
 - repo file tree and selected text files
-- Codebrain analysis JSON
+- analysis JSON
 - explicit CLI budget and output paths
 
 Avoid hidden inputs such as wall-clock time, network data, model output, or local editor state.

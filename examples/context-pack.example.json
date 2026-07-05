@@ -2,8 +2,8 @@
   "task_id": "issue-123",
   "source_inputs": {
     "issue": "issue-123.md",
-    "repo_wiki": ".codebrain/repo-wiki/index.md",
-    "codebrain_relevant_files": ".codebrain/analysis/issue-123.json"
+    "repo": ".",
+    "analysis": "analysis/issue-123.json"
   },
   "budget_tokens": 30000,
   "estimated_tokens": 21400,
