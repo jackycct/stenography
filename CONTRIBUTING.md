@@ -14,9 +14,10 @@ In scope:
 
 Out of scope:
 
-- Avionics workflow orchestration and feature-flag policy
-- Codebrain repo understanding, impact analysis, and repo wiki generation
-- AgentLens telemetry, reporting, and A/B experiment storage
+- workflow orchestration and feature-flag policy
+- repo understanding, impact analysis, and repo wiki generation
+
+AgentLens integration is allowed for eval telemetry and reporting used to prove improvements.
 
 ## Workflow
 

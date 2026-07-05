@@ -8,7 +8,7 @@ Generate compact, deterministic context packs that help coding agents act with e
 
 - task brief or issue text
 - repo summary from local files
-- optional Codebrain analysis JSON
+- optional analysis JSON
 - token budget
 - output path
 

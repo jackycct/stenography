@@ -2,7 +2,7 @@
 
 Stenography generates deterministic context packs for coding agents under a token budget.
 
-It is not a generic short-writing project. It is a repo-local packing layer that turns task input, repo summaries, and optional Codebrain analysis into a compact Markdown pack plus JSON metadata that other workflow tools can consume.
+It is not a generic short-writing project. It is a repo-local packing layer that turns task input, repo summaries, and optional analysis JSON into a compact Markdown pack plus JSON metadata that other workflow tools can consume.
 
 ## Project Docs
 
@@ -28,7 +28,7 @@ It is not a generic short-writing project. It is a repo-local packing layer that
 
 ## Token & Speed Efficiency Comparison
 
-The table below is a target hypothesis for eval design, not a measured claim. Treat performance numbers as measured only when an AgentLens artifact is linked from an eval report.
+The table below is a target hypothesis for eval design, not a measured claim. Treat performance numbers as measured only when an AgentLens artifact is linked from a report that follows [docs/evals/token-savings-methodology.md](docs/evals/token-savings-methodology.md).
 
 | Metric / Style | Verbose (Default) | Caveman | Stenography (Symbolic) |
 | :--- | :--- | :--- | :--- |
@@ -56,7 +56,7 @@ stenography pack \
   --repo . \
   --task issue-123.md \
   --budget 30000 \
-  --codebrain-analysis .codebrain/analysis/issue-123.json \
+  --analysis analysis/issue-123.json \
   --output .stenography/packs/issue-123.pack.md
 
 stenography summarize-repo --repo . --output .stenography/repo-summary.md
@@ -67,20 +67,12 @@ Contract: [docs/context-pack-contract.md](docs/context-pack-contract.md)
 
 Boundaries:
 
-- Stenography: token-efficient context packing
-- Avionics: workflow orchestration + feature toggles
-- agent-lens: telemetry, evals, A/B evidence
-- Codebrain: repo understanding, query, impact, repo wiki
+- Stenography owns deterministic context-pack generation.
+- External workflow tools may call the CLI.
+- External analysis tools may produce optional JSON consumed through `--analysis`.
+- AgentLens may measure token savings and task outcomes.
 
-Avionics feature flags:
-
-```yaml
-features:
-  stenography_context_pack:
-    enabled: true
-  stenography_repo_summary:
-    enabled: true
-```
+Stenography must not depend on any specific orchestrator or repo-understanding engine.
 
 ---
 

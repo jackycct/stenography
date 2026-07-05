@@ -12,7 +12,7 @@ const DEFAULT_SECTIONS = [
   'risk_notes',
   'execution_guidance'
 ];
-const SKIP_DIRS = new Set(['.git', 'node_modules', '.stenography', '.codebrain']);
+const SKIP_DIRS = new Set(['.git', 'node_modules', '.stenography']);
 const TEXT_EXTS = new Set([
   '.md', '.txt', '.js', '.json', '.yml', '.yaml', '.ts', '.tsx', '.jsx',
   '.py', '.rs', '.go', '.java', '.cs', '.rb', '.php', '.sh', '.ps1', '.toml'
@@ -22,7 +22,7 @@ function usage() {
   console.log(`stenography ${VERSION}
 
 Usage:
-  stenography pack --repo . --task issue.md --budget 30000 --output .stenography/packs/issue.pack.md [--codebrain-analysis analysis.json]
+  stenography pack --repo . --task issue.md --budget 30000 --output .stenography/packs/issue.pack.md [--analysis analysis.json]
   stenography summarize-repo --repo . --output .stenography/repo-summary.md
   stenography validate-pack .stenography/packs/issue.pack.json
 `);
@@ -136,7 +136,8 @@ function buildPack(options) {
   const outputJson = outputMd.replace(/\.md$/i, '.json');
   const budgetTokens = Number(options.budget || 30000);
   const taskText = readText(taskPath);
-  const analysis = normalizeAnalysis(options['codebrain-analysis'] ? readJson(path.resolve(options['codebrain-analysis'])) : null);
+  const analysisPath = options.analysis || null;
+  const analysis = normalizeAnalysis(analysisPath ? readJson(path.resolve(analysisPath)) : null);
   const repoSummary = summarizeRepo(repo);
   const taskId = path.basename(taskPath).replace(/\.[^.]+$/, '');
   const sections = DEFAULT_SECTIONS.slice();
@@ -150,21 +151,20 @@ function buildPack(options) {
     repoSummary.trim(),
     '',
     '## Relevant Files',
-    renderList(analysis.relevant_files, 'No Codebrain relevant_files supplied.'),
+    renderList(analysis.relevant_files, 'No analysis relevant_files supplied.'),
     '',
     '## Symbols',
-    renderList(analysis.symbols, 'No Codebrain symbols supplied.'),
+    renderList(analysis.symbols, 'No analysis symbols supplied.'),
     '',
     '## Affected Tests',
-    renderList(analysis.affected_tests, 'No Codebrain affected_tests supplied.'),
+    renderList(analysis.affected_tests, 'No analysis affected_tests supplied.'),
     '',
     '## Risk Notes',
-    renderList(analysis.risk_notes, 'No Codebrain risk_notes supplied.'),
+    renderList(analysis.risk_notes, 'No analysis risk_notes supplied.'),
     '',
     '## Execution Guidance',
-    '- Treat Codebrain fields as opaque inputs; do not depend on Codebrain internals.',
-    '- Keep Avionics orchestration outside this repo.',
-    '- Keep agent-lens measurement outside this repo.',
+    '- Treat analysis fields as opaque inputs; do not depend on producer internals.',
+    '- Keep orchestration and telemetry outside this repo.',
     ''
   ].join('\n');
   const estimatedTokens = estimateTokens(md);
@@ -172,8 +172,8 @@ function buildPack(options) {
     task_id: taskId,
     source_inputs: {
       issue: relPath(repo, taskPath),
-      repo_wiki: '.codebrain/repo-wiki/index.md',
-      codebrain_relevant_files: options['codebrain-analysis'] || null
+      repo: '.',
+      analysis: analysisPath || null
     },
     budget_tokens: budgetTokens,
     estimated_tokens: estimatedTokens,
