@@ -1,12 +1,33 @@
 name: stenography
 version: 0.1.0
-description: Token-efficient context packing layer for coding-agent workflows.
-publisher: jackycct
+description: Token-efficient context packing and repo-memory layer for coding-agent workflows.
+author: jackycct
 license: MIT
 repository: https://github.com/jackycct/stenography
-exports:
-  instructions:
-    - .apm/instructions/context-budget-policy.instructions.md
-  skills:
-    - .apm/skills/stenography-context-pack
-    - .apm/skills/stenography-repo-summary
+type: hybrid
+targets:
+  - claude
+  - codex
+  - copilot
+  - gemini
+  - opencode
+includes:
+  - .apm/instructions/context-budget-policy.instructions.md
+  - .apm/skills/stenography-context-pack/
+  - .apm/skills/stenography-repo-summary/
+dependencies:
+  apm: []
+  mcp: []
+  lsp: []
+scripts:
+  help: "stenography --help"
+  summarize-repo: "stenography summarize-repo --repo . --output .stenography/repo-summary.md"
+  validate-pack-example: "stenography validate-pack examples/context-pack.example.json"
+policy:
+  fetch_failure_default: block
+x-stenography:
+  role: knowledge-capture
+  provides:
+    - context-budget-policy
+    - context-packing
+    - repo-summary
